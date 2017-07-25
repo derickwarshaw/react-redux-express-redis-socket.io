@@ -1,8 +1,9 @@
 const process = require('process'),
-config = require('./config.js'),
-socketioEmiiter = require('socket.io-emitter');
+config = require('../config.js'),
+socketIoEmitter = require('socket.io-emitter');
 
-var io = socketioEmiiter({host: config.redis_host, port: config.redis_port});
+var io = socketIoEmitter({host: config.redis_host, port: config.redis_port});
 
-io.to(process.argv[2]).emit('event', process.argv[3]);
+io.emit('action', {type: 'message', data:"Hello from another process"});
+
 setTimeout(() => {process.exit(0)}, 1000);
